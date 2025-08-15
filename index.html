@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>findagoose.com — Find A Goose 🪿</title>
+  <meta name="description" content="Find a goose you vibe with. Search by name, filter by tags, share or copy, and enjoy the geese gallery." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body class="sprinkles">
+  <header>
+    <a class="brand" href="#">
+      <div class="brand-logo" aria-hidden="true"><span>🪿</span></div>
+      <div class="brand-title">findagoose<span style="color:var(--brand);">.com</span></div>
+    </a>
+    <div style="font-weight:700; color:#6b6f80">Find a goose that<br class="mobile-only"> truly honks to you.</div>
+  </header>
+
+  <main class="wrap">
+    <!-- Spotlight -->
+    <section class="spotlight" id="spotlight" aria-live="polite">
+      <img id="spotlightImg" class="spotlight-img" alt="Spotlight goose" />
+      <div>
+        <h1 id="spotlightName">Loading a goose…</h1>
+        <div id="spotlightTags" class="tags"></div>
+        <p style="margin:0 0 16px; color:var(--muted)">Here’s a random goose to set the vibe. Use the search + tags below to filter the flock. Selecting multiple tags uses <strong>AND</strong> logic.</p>
+        <div class="actions">
+          <button id="reroll" class="btn btn-primary">🎲 Surprise me</button>
+          <button id="clearFilters" class="btn btn-ghost">🧹 Clear filters</button>
+        </div>
+        <div id="fetchError" class="notice hidden">
+          Couldn’t fetch <code>geese.json</code>. Put it next to this HTML file and reload.
+          Or load it manually:
+          <input type="file" id="jsonUpload" accept="application/json" class="file-input" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Controls -->
+    <section class="controls" aria-label="Filters and search">
+      <div class="searchbar">
+        <span aria-hidden="true">🔎</span>
+        <input id="searchInput" type="search" placeholder="Search by name… (e.g., clown)" autocomplete="off" />
+      </div>
+      <div id="tagChips" style="display:flex; flex-wrap:wrap; gap:8px"></div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="gallery" aria-live="polite"></section>
+    <div id="emptyState" class="empty hidden">No geese match that search. Try fewer tags or a different name.</div>
+
+    <footer>
+      Made with 🪿 & ampersands. <span style="opacity:.7">Tip: click any goose to spotlight & share/copy it.</span>
+    </footer>
+
+    <div id="toast" role="status" aria-live="polite">Copied!</div>
+  </main>
+
+  <script>
+    // Utilities
+    const $ = (sel, el=document) => el.querySelector(sel);
+    const $$ = (sel, el=document) => Array.from(el.querySelectorAll(sel));
+    const debounce = (fn, ms=120) => { let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a),ms); } };
+    const titleCase = s => s.replace(/[_-]+/g,' ').replace(/\b\w/g, m=>m.toUpperCase());
+    const absUrl = (p)=> new URL(p, location.href).toString();
+
+    function showToast(msg='Copied!'){
+      const el = $('#toast');
+      if(!el) return; el.textContent = msg; el.setAttribute('data-show','true');
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(()=> el.removeAttribute('data-show'), 1600);
+    }
+
+    async function shareOrCopy(goose){
+      const url = goose.image ? absUrl(goose.image) : location.href;
+      const title = `Goose: ${titleCase(goose.name)}`;
+      const text = (goose.tags && goose.tags.length) ? `Tags: ${goose.tags.join(', ')}` : 'Shared from findagoose.com';
+
+      // Prefer Web Share on capable (usually mobile) browsers
+      try {
+        if(navigator.share){
+          if (goose.image) {
+            try {
+              const res = await fetch(url, {mode:'cors'});
+              const blob = await res.blob();
+              const file = new File([blob], `${goose.name || 'goose'}.${(blob.type.split('/')[1]||'png')}`, { type: blob.type });
+              if(navigator.canShare && navigator.canShare({ files: [file] })){
+                await navigator.share({ files:[file], title, text });
+                return;
+              }
+            } catch(_) { /* fall through to URL share */ }
+          }
+          await navigator.share({ title, text, url });
+          return;
+        }
+      } catch(_) { /* fall through to clipboard */ }
+
+      // Clipboard path (desktop etc.)
+      try{
+        if(goose.image && navigator.clipboard && window.ClipboardItem){
+          const res = await fetch(url, {mode:'cors'});
+          const blob = await res.blob();
+          await navigator.clipboard.write([ new ClipboardItem({ [blob.type]: blob }) ]);
+          showToast('Image copied to clipboard');
+          return;
+        }
+      }catch(_){ /* fall back to text */ }
+
+      // Fallback: copy URL text
+      try{
+        if(navigator.clipboard){
+          await navigator.clipboard.writeText(url);
+          showToast('Image link copied');
+          return;
+        }
+      }catch(_){ /* ignore */ }
+
+      showToast('Unable to copy/share');
+    }
+
+    function handleGooseClick(goose){
+      renderSpotlight(goose);
+      shareOrCopy(goose);
+    }
+
+    // State
+    let ALL_GEESE = [];
+    let FILTERED = [];
+    let ACTIVE_TAGS = new Set();
+
+    // DOM
+    const spotlight = { img: $('#spotlightImg'), name: $('#spotlightName'), tags: $('#spotlightTags') };
+    const galleryEl = $('#gallery');
+    const emptyEl = $('#emptyState');
+    const tagChipsEl = $('#tagChips');
+    const searchInput = $('#searchInput');
+
+    // Load geese.json (same directory). If it fails, show upload option.
+    async function loadGeeseFromFetch(){
+      const res = await fetch('geese.json', { cache:'no-store' });
+      if(!res.ok) throw new Error('Failed fetch');
+      return await res.json();
+    }
+
+    function normalizeEntry(entry){
+      // Accept { name, tags, image? }
+      const name = String(entry.name || '').trim();
+      const tags = Array.isArray(entry.tags) ? entry.tags.map(String) : [];
+      let image = entry.image || null;
+      if(!image && name){ image = `flock/${name}.png`; }
+      return { name, tags, image };
+    }
+
+    function buildTagUniverse(list){
+      const set = new Set();
+      list.forEach(g => (g.tags||[]).forEach(t => set.add(t)));
+      return Array.from(set).sort((a,b)=>a.localeCompare(b));
+    }
+
+    function renderChips(tags){
+      tagChipsEl.innerHTML = '';
+      tags.forEach(tag => {
+        const chip = document.createElement('button');
+        chip.className = 'chip';
+        chip.textContent = tag;
+        chip.setAttribute('data-active','false');
+        chip.addEventListener('click', () => {
+          const active = chip.getAttribute('data-active') === 'true';
+          if(active){ ACTIVE_TAGS.delete(tag); chip.setAttribute('data-active','false'); }
+          else { ACTIVE_TAGS.add(tag); chip.setAttribute('data-active','true'); }
+          applyFilters();
+        });
+        tagChipsEl.appendChild(chip);
+      });
+    }
+
+    function renderSpotlight(goose){
+      const displayName = goose?.name ? titleCase(goose.name) : 'Unnamed Goose';
+      spotlight.name.textContent = displayName;
+      spotlight.tags.innerHTML = '';
+      (goose.tags || []).forEach(t => {
+        const el = document.createElement('span'); el.className='tag'; el.textContent=t; spotlight.tags.appendChild(el);
+      });
+      spotlight.img.src = goose.image || '';
+      spotlight.img.alt = displayName;
+      spotlight.img.onerror = () => {
+        const svg = encodeURIComponent(`<?xml version='1.0' encoding='UTF-8'?>\n<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 300'>\n<defs><linearGradient id='g' x1='0' x2='1'><stop stop-color='%23e8ecff'/><stop offset='1' stop-color='%23fff7fb'/></linearGradient></defs>\n<rect width='100%' height='100%' fill='url(%23g)'/>\n<text x='50%' y='45%' text-anchor='middle' font-family='Baloo 2' font-weight='800' font-size='32' fill='%232332ff'>Goose Incoming</text>\n<text x='50%' y='62%' text-anchor='middle' font-family='Inter' font-size='16' fill='%23666'>${displayName}</text>\n</svg>`);
+        spotlight.img.src = `data:image/svg+xml;charset=UTF-8,${svg}`;
+      }
+    }
+
+    function card(goose){
+      const displayName = titleCase(goose.name);
+      const el = document.createElement('article'); el.className='card'; el.tabIndex=0; el.setAttribute('role','button'); el.setAttribute('aria-label', `Select ${displayName}`);
+      el.innerHTML = `
+        <img alt="${displayName}" loading="lazy" src="${goose.image||''}" onerror="this.onerror=null;this.src='data:image/svg+xml;utf8,${encodeURIComponent(`<svg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 200 150\'><rect width=\'100%\' height=\'100%\' fill=\'#eef1ff'/><text x=\'50%\' y=\'55%\' text-anchor=\'middle\' font-family=\'Inter\' font-size=\'14\' fill=\'#8891ff\'>No image</text></svg>`)}'"/>
+        <div class="meta">
+          <h3>${displayName}</h3>
+          <div class="tagrow">${(goose.tags||[]).map(t=>`<span class='tag'>${t}</span>`).join('')}</div>
+        </div>`;
+      el.addEventListener('click', ()=> handleGooseClick(goose));
+      el.addEventListener('keypress', (e)=>{ if(e.key==='Enter') handleGooseClick(goose) });
+      return el;
+    }
+
+    function renderGallery(list){
+      galleryEl.innerHTML='';
+      if(!list.length){ emptyEl.classList.remove('hidden'); return; }
+      emptyEl.classList.add('hidden');
+      const frag = document.createDocumentFragment();
+      list.forEach(g => frag.appendChild(card(g)));
+      galleryEl.appendChild(frag);
+    }
+
+    function applyFilters(){
+      const q = searchInput.value.trim().toLowerCase();
+      const tags = Array.from(ACTIVE_TAGS);
+      FILTERED = ALL_GEESE.filter(g => {
+        const nameOk = !q || g.name.toLowerCase().includes(q);
+        const tagsOk = !tags.length || tags.every(t => g.tags.includes(t));
+        return nameOk && tagsOk;
+      });
+      renderGallery(FILTERED);
+    }
+
+    function pickRandom(list){ return !list.length ? null : list[Math.floor(Math.random()*list.length)]; }
+
+    // Hook up controls
+    $('#reroll').addEventListener('click', ()=>{
+      const src = FILTERED.length ? FILTERED : ALL_GEESE;
+      const g = pickRandom(src);
+      if(g) renderSpotlight(g);
+    });
+    $('#clearFilters').addEventListener('click', ()=>{
+      searchInput.value=''; ACTIVE_TAGS.clear();
+      $$('.chip').forEach(ch => ch.setAttribute('data-active','false'));
+      applyFilters();
+    });
+    searchInput.addEventListener('input', debounce(applyFilters, 80));
+
+    // Upload fallback
+    $('#jsonUpload')?.addEventListener('change', async (e)=>{
+      const file = e.target.files?.[0]; if(!file) return;
+      const text = await file.text();
+      boot(JSON.parse(text));
+    });
+
+    function boot(rawList){
+      ALL_GEESE = (rawList||[]).map(normalizeEntry).filter(g=>g.name);
+      if(!ALL_GEESE.length){ $('#fetchError').classList.remove('hidden'); return; }
+      const tags = buildTagUniverse(ALL_GEESE);
+      renderChips(tags);
+      applyFilters();
+      renderSpotlight(pickRandom(ALL_GEESE));
+    }
+
+    (async function init(){
+      try{ const json = await loadGeeseFromFetch(); boot(json); }
+      catch(err){ console.warn('Could not load geese.json', err); $('#fetchError').classList.remove('hidden'); }
+    })();
+  </script>
+</body>
+</html>

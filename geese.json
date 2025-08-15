@@ -1,0 +1,306 @@
+[
+    {
+        "name":"laughing_cry",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"pineapple",
+        "tags":["avatar"]
+    },
+    {
+        "name":"monocle",
+        "tags":["avatar","emotion"]
+    },
+    {
+        "name":"spicy_pepper",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"grin",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"tiger",
+        "tags":["avatar","emotion"]
+    },
+    {
+        "name":"eyebrows",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"cupcake",
+        "tags":["avatar"]
+    },
+    {
+        "name":"trash",
+        "tags":["item"]
+    },
+    {
+        "name":"head_explosion",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"shocked",
+        "tags":["avatar","emotion"]
+    },
+    {
+        "name":"sweat",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"radiation",
+        "tags":["avatar"]
+    },
+    {
+        "name":"smile",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"coffee",
+        "tags":["avatar", "item"]
+    },
+    {
+        "name":"heart_eyes",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"hedgehog",
+        "tags":["emotion"]
+    },
+    {
+        "name":"dead_eyes",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"frog",
+        "tags":["avatar"]
+    },
+    {
+        "name":"sad_sweat",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"cussing",
+        "tags":["emotion"]
+    },
+    {
+        "name":"lime",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"dizzy",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"tuxedo",
+        "tags":["avatar"]
+    },
+    {
+        "name":"laughing",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"hibiscus",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"chicken",
+        "tags":["avatar"]
+    },
+    {
+        "name":"sick",
+        "tags":["emotion"]
+    },
+    {
+        "name":"blushing",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"embarrassed",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"golden",
+        "tags":["avatar"]
+    },
+    {
+        "name":"eyes",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"side_eye",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"kisses",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"teary",
+        "tags":["avatar"]
+    },
+    {
+        "name":"pizza",
+        "tags":["item"]
+    },
+    {
+        "name":"butterfly",
+        "tags":["avatar"]
+    },
+    {
+        "name":"double_fuming",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"drooling",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"star",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"sneeze",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"birthday",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"sunglasses",
+        "tags":["emotion"]
+    },
+    {
+        "name":"lovey",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"suspicious",
+        "tags":["emotion"]
+    },
+    {
+        "name":"exasperated",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"paint",
+        "tags":["avatar"]
+    },
+    {
+        "name":"ram",
+        "tags":["avatar"]
+    },
+    {
+        "name":"bandage",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"bread_crumbs",
+        "tags":["item"]
+    },
+    {
+        "name":"tongue",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"flamenco",
+        "tags":["item"]
+    },
+    {
+        "name":"detective",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"teeth",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"sheep",
+        "tags":["avatar"]
+    },
+    {
+        "name":"slippy_banana",
+        "tags":["item"]
+    },
+    {
+        "name":"alien",
+        "tags":["avatar"]
+    },
+    {
+        "name":"soup",
+        "tags":["item"]
+    },
+    {
+        "name":"grumpy",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"no_mouth",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"snowboard",
+        "tags":["item"]
+    },
+    {
+        "name":"sad",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"reindeer",
+        "tags":["avatar"]
+    },
+    {
+        "name":"upside_down",
+        "tags":["avatar"]
+    },
+    {
+        "name":"blep",
+        "tags":["emotion"]
+    },
+    {
+        "name":"yarn",
+        "tags":["item"]
+    },
+    {
+        "name":"lighbtbulb",
+        "tags":["item"]
+    },
+    {
+        "name":"frazzled",
+        "tags":["avatar"]
+    },
+    {
+        "name":"clown",
+        "tags":["avatar"]
+    },
+    {
+        "name":"telephone",
+        "tags":["item"]
+    },
+    {
+        "name":"pinocchio",
+        "tags":["avatar"]
+    },
+    {
+        "name":"blink",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"sad_nod",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"koala",
+        "tags":["avatar"]
+    },
+    {
+        "name":"bowling",
+        "tags":["item"]
+    },
+    {
+        "name":"smiley",
+        "tags":["avatar", "emotion"]
+    }
+]
