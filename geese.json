@@ -21,7 +21,7 @@
     },
     {
         "name":"tiger",
-        "tags":["avatar","emotion"]
+        "tags":["avatar"]
     },
     {
         "name":"eyebrows",
@@ -65,7 +65,7 @@
     },
     {
         "name":"hedgehog",
-        "tags":["emotion"]
+        "tags":["avatar"]
     },
     {
         "name":"dead_eyes",
@@ -85,7 +85,7 @@
     },
     {
         "name":"lime",
-        "tags":["avatar", "emotion"]
+        "tags":["avatar"]
     },
     {
         "name":"dizzy",
@@ -101,7 +101,7 @@
     },
     {
         "name":"hibiscus",
-        "tags":["avatar", "emotion"]
+        "tags":["avatar"]
     },
     {
         "name":"chicken",
@@ -264,7 +264,7 @@
         "tags":["item"]
     },
     {
-        "name":"lighbtbulb",
+        "name":"lightbulb",
         "tags":["item"]
     },
     {
