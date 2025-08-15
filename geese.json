@@ -20,6 +20,10 @@
         "tags":["avatar", "emotion"]
     },
     {
+        "name":"hotdog",
+        "tags":["avatar"]
+    },
+    {
         "name":"tiger",
         "tags":["avatar"]
     },
@@ -40,8 +44,20 @@
         "tags":["avatar", "emotion"]
     },
     {
+        "name":"snail",
+        "tags":["avatar"]
+    },
+    {
         "name":"shocked",
         "tags":["avatar","emotion"]
+    },
+    {
+        "name":"ladybug",
+        "tags":["avatar"]
+    },
+    {
+        "name":"king",
+        "tags":["avatar"]
     },
     {
         "name":"sweat",
@@ -52,7 +68,19 @@
         "tags":["avatar"]
     },
     {
+        "name":"cow",
+        "tags":["avatar"]
+    },
+    {
         "name":"smile",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"rose",
+        "tags":["avatar", "emotion", "item"]
+    },
+    {
+        "name":"demon",
         "tags":["avatar", "emotion"]
     },
     {
@@ -60,8 +88,20 @@
         "tags":["avatar", "item"]
     },
     {
+        "name":"disguise",
+        "tags":["item"]
+    },
+    {
+        "name":"bumblebee",
+        "tags":["avatar"]
+    },
+    {
         "name":"heart_eyes",
         "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"top_hat",
+        "tags":["avatar"]
     },
     {
         "name":"hedgehog",
@@ -76,6 +116,10 @@
         "tags":["avatar"]
     },
     {
+        "name":"zipped",
+        "tags":["avatar", "emotion"]
+    },
+    {
         "name":"sad_sweat",
         "tags":["avatar", "emotion"]
     },
@@ -88,8 +132,16 @@
         "tags":["avatar"]
     },
     {
+        "name":"watermelon",
+        "tags":["avatar"]
+    },
+    {
         "name":"dizzy",
         "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"pink_sparkles",
+        "tags":["avatar"]
     },
     {
         "name":"tuxedo",
@@ -100,12 +152,24 @@
         "tags":["avatar", "emotion"]
     },
     {
+        "name":"fries",
+        "tags":["item"]
+    },
+    {
         "name":"hibiscus",
         "tags":["avatar"]
     },
     {
         "name":"chicken",
         "tags":["avatar"]
+    },
+    {
+        "name":"cold",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"clouds",
+        "tags":["item"]
     },
     {
         "name":"sick",
@@ -116,16 +180,28 @@
         "tags":["avatar", "emotion"]
     },
     {
+        "name":"fire",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"cactus",
+        "tags":["avatar"]
+    },
+    {
         "name":"embarrassed",
         "tags":["avatar", "emotion"]
     },
     {
-        "name":"golden",
+        "name":"strawberry",
         "tags":["avatar"]
     },
     {
         "name":"eyes",
         "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"cherry",
+        "tags":["avatar"]
     },
     {
         "name":"side_eye",
@@ -146,6 +222,10 @@
     {
         "name":"butterfly",
         "tags":["avatar"]
+    },
+    {
+        "name":"rice",
+        "tags":["item"]
     },
     {
         "name":"double_fuming",
@@ -178,13 +258,29 @@
     {
         "name":"suspicious",
         "tags":["emotion"]
+    },    
+    {
+        "name":"fortune_egg",
+        "tags":["item"]
     },
     {
         "name":"exasperated",
         "tags":["avatar", "emotion"]
     },
     {
+        "name":"parachute",
+        "tags":["item"]
+    },
+    {
         "name":"paint",
+        "tags":["avatar"]
+    },
+    {
+        "name":"balloon",
+        "tags":["item"]
+    },
+    {
+        "name":"cheese",
         "tags":["avatar"]
     },
     {
@@ -204,16 +300,40 @@
         "tags":["avatar", "emotion"]
     },
     {
+        "name":"bat",
+        "tags":["avatar"]
+    },
+    {
         "name":"flamenco",
         "tags":["item"]
+    },
+    {
+        "name":"dead",
+        "tags":["emotion"]
+    },
+    {
+        "name":"doctor",
+        "tags":["emotion"]
+    },
+    {
+        "name":"mushroom",
+        "tags":["avatar"]
     },
     {
         "name":"detective",
         "tags":["avatar", "emotion"]
     },
     {
+        "name":"angel",
+        "tags":["avatar", "emotion"]
+    },
+    {
         "name":"teeth",
         "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"flamingo",
+        "tags":["avatar"]
     },
     {
         "name":"sheep",
@@ -224,7 +344,23 @@
         "tags":["item"]
     },
     {
+        "name":"panda",
+        "tags":["avatar"]
+    },
+    {
+        "name":"outline",
+        "tags":["avatar"]
+    },
+    {
+        "name":"trapped",
+        "tags":["item"]
+    },
+    {
         "name":"alien",
+        "tags":["avatar"]
+    },
+    {
+        "name":"lemon",
         "tags":["avatar"]
     },
     {
@@ -232,8 +368,32 @@
         "tags":["item"]
     },
     {
+        "name":"strong",
+        "tags":["avatar","item"]
+    },
+    {
         "name":"grumpy",
         "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"world_egg",
+        "tags":["item"]
+    },
+    {
+        "name":"stardust",
+        "tags":["avatar"]
+    },
+    {
+        "name":"blush_happy",
+        "tags":["avatar","emotion"]
+    },
+    {
+        "name":"sobbing",
+        "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"football",
+        "tags":["avatar"]
     },
     {
         "name":"no_mouth",
@@ -242,6 +402,10 @@
     {
         "name":"snowboard",
         "tags":["item"]
+    },
+    {
+        "name":"snake",
+        "tags":["avatar"]
     },
     {
         "name":"sad",
@@ -254,6 +418,10 @@
     {
         "name":"upside_down",
         "tags":["avatar"]
+    },
+    {
+        "name":"lei",
+        "tags":["avatar","item"]
     },
     {
         "name":"blep",
@@ -272,16 +440,44 @@
         "tags":["avatar"]
     },
     {
+        "name":"glasses",
+        "tags":["avatar"]
+    },
+    {
         "name":"clown",
         "tags":["avatar"]
+    },
+    {
+        "name":"scorpion",
+        "tags":["avatar"]
+    },
+    {
+        "name":"lion",
+        "tags":["item"]
+    },
+    {
+        "name":"music",
+        "tags":["item"]
     },
     {
         "name":"telephone",
         "tags":["item"]
     },
     {
+        "name":"daisy",
+        "tags":["avatar", "item"]
+    },
+    {
+        "name":"unicorn",
+        "tags":["avatar"]
+    },
+    {
         "name":"pinocchio",
         "tags":["avatar"]
+    },
+    {
+        "name":"sun",
+        "tags":["item"]
     },
     {
         "name":"blink",
@@ -296,11 +492,23 @@
         "tags":["avatar"]
     },
     {
+        "name":"melting",
+        "tags":["emotion"]
+    },
+    {
         "name":"bowling",
         "tags":["item"]
     },
     {
+        "name":"racoon",
+        "tags":["avatar"]
+    },
+    {
         "name":"smiley",
         "tags":["avatar", "emotion"]
+    },
+    {
+        "name":"mother",
+        "tags":["item"]
     }
 ]
