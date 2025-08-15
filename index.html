@@ -234,11 +234,7 @@
       const g = pickRandom(src);
       if(g) renderSpotlight(g);
     });
-    $('#clearFilters').addEventListener('click', ()=>{
-      searchInput.value=''; ACTIVE_TAGS.clear();
-      $$('.chip').forEach(ch => ch.setAttribute('data-active','false'));
-      applyFilters();
-    });
+
     searchInput.addEventListener('input', debounce(applyFilters, 80));
 
     // Upload fallback
